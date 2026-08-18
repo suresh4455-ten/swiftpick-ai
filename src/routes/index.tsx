@@ -21,11 +21,11 @@ export const Route = createFileRoute("/")({
         content:
           "WAREFLOW AI is an intelligent warehouse command center: priority scoring, smart inventory allocation, picking optimization, bottleneck detection and exception resolution.",
       },
-      { property: "og:title", content: "WAREFLOW AI — Warehouse Command Center" },
+      { property: "og:title", content: "WAREFLOW AI — From Warehouse Data to Intelligent Decisions" },
       {
         property: "og:description",
         content:
-          "It doesn't just monitor the warehouse — it recommends what to do next. Explainable AI decisions for order fulfillment.",
+          "WAREFLOW AI is an intelligent warehouse command center: priority scoring, smart inventory allocation, picking optimization, bottleneck detection and exception resolution.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

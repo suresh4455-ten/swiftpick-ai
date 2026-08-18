@@ -78,21 +78,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "WAREFLOW AI — Warehouse Command Center" },
+      { title: "WAREFLOW AI — From Warehouse Data to Intelligent Decisions" },
       {
         name: "description",
         content:
-          "AI-powered warehouse operations: order prioritization, smart allocation, picking optimization and exception resolution.",
+          "WAREFLOW AI is an intelligent warehouse command center: priority scoring, smart inventory allocation, picking optimization, bottleneck detection and exception resolution.",
       },
       { name: "author", content: "WAREFLOW AI" },
-      { property: "og:title", content: "WAREFLOW AI — Warehouse Command Center" },
+      { property: "og:title", content: "WAREFLOW AI — From Warehouse Data to Intelligent Decisions" },
       {
         property: "og:description",
-        content: "From warehouse data to intelligent decisions.",
+        content: "WAREFLOW AI is an intelligent warehouse command center: priority scoring, smart inventory allocation, picking optimization, bottleneck detection and exception resolution.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "WAREFLOW AI — From Warehouse Data to Intelligent Decisions" },
+      { name: "twitter:description", content: "WAREFLOW AI is an intelligent warehouse command center: priority scoring, smart inventory allocation, picking optimization, bottleneck detection and exception resolution." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/99e9e3e8d43eeb73290091ad54add47a/id-preview-3aa5437e--fac9d1a6-91d4-4891-9f11-371c64b3e0a2.lovable.app-1787032033912.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/99e9e3e8d43eeb73290091ad54add47a/id-preview-3aa5437e--fac9d1a6-91d4-4891-9f11-371c64b3e0a2.lovable.app-1787032033912.png" },
     ],
     links: [
       {
