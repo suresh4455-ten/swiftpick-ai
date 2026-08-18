@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { DecisionCard, EmptyState, PageHeader } from "@/components/wf/bits";
-import { insights } from "@/lib/wf/engine";
+import { buildInsights, type Insight } from "@/lib/wf/engine";
 import { useWf } from "@/lib/wf/store";
 
 export const Route = createFileRoute("/_shell/recommendations")({
@@ -18,8 +18,30 @@ export const Route = createFileRoute("/_shell/recommendations")({
 });
 
 function RecommendationsPage() {
-  const state = useWf();
-  const list = insights(state.orders, state.products, state.stations, state.exceptions);
+  const { orders, products, stations, exceptions, dispatch, act } = useWf();
+  const navigate = useNavigate();
+  const list = buildInsights(orders, products, stations, exceptions);
+
+  const run = (i: Insight) => {
+    const a = i.action;
+    if (a.kind === "navigate") {
+      void navigate({ to: a.to });
+      return;
+    }
+    act(
+      () => {
+        if (a.kind === "prioritize") dispatch({ type: "allocate", orderId: a.orderId });
+        else if (a.kind === "reorder") dispatch({ type: "reorder", sku: a.sku });
+        else if (a.kind === "batch") dispatch({ type: "batch", orderIds: a.orderIds });
+        else dispatch({ type: "rebalance", stationId: a.stationId });
+      },
+      i.title,
+      i.impact,
+    );
+  };
+
+  const tone = (level: Insight["level"]) =>
+    level === "critical" ? "danger" : level === "warning" ? "warn" : level === "optimization" ? "info" : "ok";
 
   return (
     <div className="space-y-6">
@@ -36,16 +58,19 @@ function RecommendationsPage() {
           {list.map((i) => (
             <DecisionCard
               key={i.id}
-              tone={i.tone as "danger"}
+              tone={tone(i.level) as "danger"}
               label={i.title}
-              decision={i.decision}
+              decision={i.recommendation}
               reason={i.reason}
               impact={i.impact}
-              action={i.action}
-              factors={i.factors}
+              action={i.actionLabel}
+              factors={[
+                { label: "Detected", value: i.problem },
+                { label: "Level", value: i.level },
+              ]}
             >
-              <Button size="sm" onClick={() => state.act(() => state.dispatch(i.dispatch), i.title, i.action)}>
-                Approve & execute
+              <Button size="sm" onClick={() => run(i)}>
+                {i.actionLabel}
               </Button>
             </DecisionCard>
           ))}
