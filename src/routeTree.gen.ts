@@ -10,33 +10,153 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ShellRouteImport } from './routes/_shell'
+import { Route as ShellAllocationRouteImport } from './routes/_shell.allocation'
+import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellExceptionsRouteImport } from './routes/_shell.exceptions'
+import { Route as ShellInventoryRouteImport } from './routes/_shell.inventory'
+import { Route as ShellPackingRouteImport } from './routes/_shell.packing'
+import { Route as ShellPickingRouteImport } from './routes/_shell.picking'
+import { Route as ShellRecommendationsRouteImport } from './routes/_shell.recommendations'
+import { Route as ShellOrdersIndexRouteImport } from './routes/_shell.orders.index'
+import { Route as ShellOrdersIdRouteImport } from './routes/_shell.orders.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellRoute = ShellRouteImport.update({
+  id: '/_shell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShellAllocationRoute = ShellAllocationRouteImport.update({
+  id: '/allocation',
+  path: '/allocation',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDashboardRoute = ShellDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellExceptionsRoute = ShellExceptionsRouteImport.update({
+  id: '/exceptions',
+  path: '/exceptions',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellInventoryRoute = ShellInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellPackingRoute = ShellPackingRouteImport.update({
+  id: '/packing',
+  path: '/packing',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellPickingRoute = ShellPickingRouteImport.update({
+  id: '/picking',
+  path: '/picking',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellRecommendationsRoute = ShellRecommendationsRouteImport.update({
+  id: '/recommendations',
+  path: '/recommendations',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellOrdersIndexRoute = ShellOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellOrdersIdRoute = ShellOrdersIdRouteImport.update({
+  id: '/orders/$id',
+  path: '/orders/$id',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/allocation': typeof ShellAllocationRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/exceptions': typeof ShellExceptionsRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/packing': typeof ShellPackingRoute
+  '/picking': typeof ShellPickingRoute
+  '/recommendations': typeof ShellRecommendationsRoute
+  '/orders/$id': typeof ShellOrdersIdRoute
+  '/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/allocation': typeof ShellAllocationRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/exceptions': typeof ShellExceptionsRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/packing': typeof ShellPackingRoute
+  '/picking': typeof ShellPickingRoute
+  '/recommendations': typeof ShellRecommendationsRoute
+  '/orders/$id': typeof ShellOrdersIdRoute
+  '/orders': typeof ShellOrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_shell': typeof ShellRouteWithChildren
+  '/_shell/allocation': typeof ShellAllocationRoute
+  '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/exceptions': typeof ShellExceptionsRoute
+  '/_shell/inventory': typeof ShellInventoryRoute
+  '/_shell/packing': typeof ShellPackingRoute
+  '/_shell/picking': typeof ShellPickingRoute
+  '/_shell/recommendations': typeof ShellRecommendationsRoute
+  '/_shell/orders/$id': typeof ShellOrdersIdRoute
+  '/_shell/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/allocation'
+    | '/dashboard'
+    | '/exceptions'
+    | '/inventory'
+    | '/packing'
+    | '/picking'
+    | '/recommendations'
+    | '/orders/$id'
+    | '/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/allocation'
+    | '/dashboard'
+    | '/exceptions'
+    | '/inventory'
+    | '/packing'
+    | '/picking'
+    | '/recommendations'
+    | '/orders/$id'
+    | '/orders'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/_shell/allocation'
+    | '/_shell/dashboard'
+    | '/_shell/exceptions'
+    | '/_shell/inventory'
+    | '/_shell/packing'
+    | '/_shell/picking'
+    | '/_shell/recommendations'
+    | '/_shell/orders/$id'
+    | '/_shell/orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ShellRoute: typeof ShellRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +168,108 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell': {
+      id: '/_shell'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ShellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_shell/allocation': {
+      id: '/_shell/allocation'
+      path: '/allocation'
+      fullPath: '/allocation'
+      preLoaderRoute: typeof ShellAllocationRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/dashboard': {
+      id: '/_shell/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof ShellDashboardRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/exceptions': {
+      id: '/_shell/exceptions'
+      path: '/exceptions'
+      fullPath: '/exceptions'
+      preLoaderRoute: typeof ShellExceptionsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/inventory': {
+      id: '/_shell/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof ShellInventoryRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/packing': {
+      id: '/_shell/packing'
+      path: '/packing'
+      fullPath: '/packing'
+      preLoaderRoute: typeof ShellPackingRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/picking': {
+      id: '/_shell/picking'
+      path: '/picking'
+      fullPath: '/picking'
+      preLoaderRoute: typeof ShellPickingRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/recommendations': {
+      id: '/_shell/recommendations'
+      path: '/recommendations'
+      fullPath: '/recommendations'
+      preLoaderRoute: typeof ShellRecommendationsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/orders/': {
+      id: '/_shell/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof ShellOrdersIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/orders/$id': {
+      id: '/_shell/orders/$id'
+      path: '/orders/$id'
+      fullPath: '/orders/$id'
+      preLoaderRoute: typeof ShellOrdersIdRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
+interface ShellRouteChildren {
+  ShellAllocationRoute: typeof ShellAllocationRoute
+  ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellExceptionsRoute: typeof ShellExceptionsRoute
+  ShellInventoryRoute: typeof ShellInventoryRoute
+  ShellPackingRoute: typeof ShellPackingRoute
+  ShellPickingRoute: typeof ShellPickingRoute
+  ShellRecommendationsRoute: typeof ShellRecommendationsRoute
+  ShellOrdersIdRoute: typeof ShellOrdersIdRoute
+  ShellOrdersIndexRoute: typeof ShellOrdersIndexRoute
+}
+
+const ShellRouteChildren: ShellRouteChildren = {
+  ShellAllocationRoute: ShellAllocationRoute,
+  ShellDashboardRoute: ShellDashboardRoute,
+  ShellExceptionsRoute: ShellExceptionsRoute,
+  ShellInventoryRoute: ShellInventoryRoute,
+  ShellPackingRoute: ShellPackingRoute,
+  ShellPickingRoute: ShellPickingRoute,
+  ShellRecommendationsRoute: ShellRecommendationsRoute,
+  ShellOrdersIdRoute: ShellOrdersIdRoute,
+  ShellOrdersIndexRoute: ShellOrdersIndexRoute,
+}
+
+const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ShellRoute: ShellRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
