@@ -14,6 +14,7 @@ import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellAllocationRouteImport } from './routes/_shell.allocation'
 import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
 import { Route as ShellInventoryRouteImport } from './routes/_shell.inventory'
+import { Route as ShellPickingRouteImport } from './routes/_shell.picking'
 import { Route as ShellOrdersIndexRouteImport } from './routes/_shell.orders.index'
 import { Route as ShellOrdersIdRouteImport } from './routes/_shell.orders.$id'
 
@@ -41,6 +42,11 @@ const ShellInventoryRoute = ShellInventoryRouteImport.update({
   path: '/inventory',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellPickingRoute = ShellPickingRouteImport.update({
+  id: '/picking',
+  path: '/picking',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellOrdersIndexRoute = ShellOrdersIndexRouteImport.update({
   id: '/orders/',
   path: '/orders/',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/allocation': typeof ShellAllocationRoute
   '/dashboard': typeof ShellDashboardRoute
   '/inventory': typeof ShellInventoryRoute
+  '/picking': typeof ShellPickingRoute
   '/orders/$id': typeof ShellOrdersIdRoute
   '/orders/': typeof ShellOrdersIndexRoute
 }
@@ -65,6 +72,7 @@ export interface FileRoutesByTo {
   '/allocation': typeof ShellAllocationRoute
   '/dashboard': typeof ShellDashboardRoute
   '/inventory': typeof ShellInventoryRoute
+  '/picking': typeof ShellPickingRoute
   '/orders/$id': typeof ShellOrdersIdRoute
   '/orders': typeof ShellOrdersIndexRoute
 }
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   '/_shell/allocation': typeof ShellAllocationRoute
   '/_shell/dashboard': typeof ShellDashboardRoute
   '/_shell/inventory': typeof ShellInventoryRoute
+  '/_shell/picking': typeof ShellPickingRoute
   '/_shell/orders/$id': typeof ShellOrdersIdRoute
   '/_shell/orders/': typeof ShellOrdersIndexRoute
 }
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
     | '/allocation'
     | '/dashboard'
     | '/inventory'
+    | '/picking'
     | '/orders/$id'
     | '/orders/'
   fileRoutesByTo: FileRoutesByTo
@@ -93,6 +103,7 @@ export interface FileRouteTypes {
     | '/allocation'
     | '/dashboard'
     | '/inventory'
+    | '/picking'
     | '/orders/$id'
     | '/orders'
   id:
@@ -102,6 +113,7 @@ export interface FileRouteTypes {
     | '/_shell/allocation'
     | '/_shell/dashboard'
     | '/_shell/inventory'
+    | '/_shell/picking'
     | '/_shell/orders/$id'
     | '/_shell/orders/'
   fileRoutesById: FileRoutesById
@@ -148,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellInventoryRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/picking': {
+      id: '/_shell/picking'
+      path: '/picking'
+      fullPath: '/picking'
+      preLoaderRoute: typeof ShellPickingRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/orders/': {
       id: '/_shell/orders/'
       path: '/orders'
@@ -169,6 +188,7 @@ interface ShellRouteChildren {
   ShellAllocationRoute: typeof ShellAllocationRoute
   ShellDashboardRoute: typeof ShellDashboardRoute
   ShellInventoryRoute: typeof ShellInventoryRoute
+  ShellPickingRoute: typeof ShellPickingRoute
   ShellOrdersIdRoute: typeof ShellOrdersIdRoute
   ShellOrdersIndexRoute: typeof ShellOrdersIndexRoute
 }
@@ -177,6 +197,7 @@ const ShellRouteChildren: ShellRouteChildren = {
   ShellAllocationRoute: ShellAllocationRoute,
   ShellDashboardRoute: ShellDashboardRoute,
   ShellInventoryRoute: ShellInventoryRoute,
+  ShellPickingRoute: ShellPickingRoute,
   ShellOrdersIdRoute: ShellOrdersIdRoute,
   ShellOrdersIndexRoute: ShellOrdersIndexRoute,
 }
