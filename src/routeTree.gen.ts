@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellOrdersIndexRouteImport } from './routes/_shell.orders.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,27 +28,35 @@ const ShellDashboardRoute = ShellDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellOrdersIndexRoute = ShellOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/orders': typeof ShellOrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_shell': typeof ShellRouteWithChildren
   '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard'
+  fullPaths: '/' | '/dashboard' | '/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard'
-  id: '__root__' | '/' | '/_shell' | '/_shell/dashboard'
+  to: '/' | '/dashboard' | '/orders'
+  id: '__root__' | '/' | '/_shell' | '/_shell/dashboard' | '/_shell/orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,15 +87,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellDashboardRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/orders/': {
+      id: '/_shell/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof ShellOrdersIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
 interface ShellRouteChildren {
   ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellOrdersIndexRoute: typeof ShellOrdersIndexRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellDashboardRoute: ShellDashboardRoute,
+  ShellOrdersIndexRoute: ShellOrdersIndexRoute,
 }
 
 const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
