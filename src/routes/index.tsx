@@ -121,7 +121,7 @@ function Landing() {
               </Link>
               <Link
                 to="/dashboard"
-                search={{ demo: true }}
+                hash="demo"
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition-colors hover:border-primary/50"
               >
                 <Play className="size-4 text-primary" /> Launch Demo

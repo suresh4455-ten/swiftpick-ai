@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useRouterState } from "@tanstack/react-router";
 import {
   AlertTriangle,
   Boxes,
@@ -28,7 +28,6 @@ import {
 import { useWf } from "@/lib/wf/store";
 
 export const Route = createFileRoute("/_shell/dashboard")({
-  validateSearch: (search: Record<string, unknown>) => ({ demo: search.demo === true || search.demo === "true" }),
   head: () => ({
     meta: [
       { title: "Command Center Dashboard — WAREFLOW AI" },
@@ -45,7 +44,7 @@ export const Route = createFileRoute("/_shell/dashboard")({
 });
 
 function Dashboard() {
-  const { demo } = Route.useSearch();
+  const demo = useRouterState({ select: (st) => st.location.hash === "demo" });
   const wf = useWf();
   const { kpis, orders, products, insights, bottleneck, role, dispatch, act, startDemo, demoRunning } = wf;
 
