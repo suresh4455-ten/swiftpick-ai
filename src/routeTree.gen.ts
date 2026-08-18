@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellInventoryRouteImport } from './routes/_shell.inventory'
 import { Route as ShellOrdersIndexRouteImport } from './routes/_shell.orders.index'
 import { Route as ShellOrdersIdRouteImport } from './routes/_shell.orders.$id'
 
@@ -29,6 +30,11 @@ const ShellDashboardRoute = ShellDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellInventoryRoute = ShellInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellOrdersIndexRoute = ShellOrdersIndexRouteImport.update({
   id: '/orders/',
   path: '/orders/',
@@ -43,12 +49,14 @@ const ShellOrdersIdRoute = ShellOrdersIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/inventory': typeof ShellInventoryRoute
   '/orders/$id': typeof ShellOrdersIdRoute
   '/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/inventory': typeof ShellInventoryRoute
   '/orders/$id': typeof ShellOrdersIdRoute
   '/orders': typeof ShellOrdersIndexRoute
 }
@@ -57,19 +65,21 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_shell': typeof ShellRouteWithChildren
   '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/inventory': typeof ShellInventoryRoute
   '/_shell/orders/$id': typeof ShellOrdersIdRoute
   '/_shell/orders/': typeof ShellOrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/orders/$id' | '/orders/'
+  fullPaths: '/' | '/dashboard' | '/inventory' | '/orders/$id' | '/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/orders/$id' | '/orders'
+  to: '/' | '/dashboard' | '/inventory' | '/orders/$id' | '/orders'
   id:
     | '__root__'
     | '/'
     | '/_shell'
     | '/_shell/dashboard'
+    | '/_shell/inventory'
     | '/_shell/orders/$id'
     | '/_shell/orders/'
   fileRoutesById: FileRoutesById
@@ -102,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellDashboardRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/inventory': {
+      id: '/_shell/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof ShellInventoryRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/orders/': {
       id: '/_shell/orders/'
       path: '/orders'
@@ -121,12 +138,14 @@ declare module '@tanstack/react-router' {
 
 interface ShellRouteChildren {
   ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellInventoryRoute: typeof ShellInventoryRoute
   ShellOrdersIdRoute: typeof ShellOrdersIdRoute
   ShellOrdersIndexRoute: typeof ShellOrdersIndexRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellDashboardRoute: ShellDashboardRoute,
+  ShellInventoryRoute: ShellInventoryRoute,
   ShellOrdersIdRoute: ShellOrdersIdRoute,
   ShellOrdersIndexRoute: ShellOrdersIndexRoute,
 }
