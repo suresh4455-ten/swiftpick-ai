@@ -1,3 +1,4 @@
+https://swiftpick-ai.lovable.app
 # FlowWise Command
 
 BUILD A PRODUCTION-QUALITY SMART WAREHOUSE AI COMMAND CENTER
