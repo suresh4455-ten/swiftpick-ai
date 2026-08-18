@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellAllocationRouteImport } from './routes/_shell.allocation'
 import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellExceptionsRouteImport } from './routes/_shell.exceptions'
 import { Route as ShellInventoryRouteImport } from './routes/_shell.inventory'
 import { Route as ShellPackingRouteImport } from './routes/_shell.packing'
 import { Route as ShellPickingRouteImport } from './routes/_shell.picking'
@@ -36,6 +37,11 @@ const ShellAllocationRoute = ShellAllocationRouteImport.update({
 const ShellDashboardRoute = ShellDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellExceptionsRoute = ShellExceptionsRouteImport.update({
+  id: '/exceptions',
+  path: '/exceptions',
   getParentRoute: () => ShellRoute,
 } as any)
 const ShellInventoryRoute = ShellInventoryRouteImport.update({
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/allocation': typeof ShellAllocationRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/exceptions': typeof ShellExceptionsRoute
   '/inventory': typeof ShellInventoryRoute
   '/packing': typeof ShellPackingRoute
   '/picking': typeof ShellPickingRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/allocation': typeof ShellAllocationRoute
   '/dashboard': typeof ShellDashboardRoute
+  '/exceptions': typeof ShellExceptionsRoute
   '/inventory': typeof ShellInventoryRoute
   '/packing': typeof ShellPackingRoute
   '/picking': typeof ShellPickingRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   '/_shell': typeof ShellRouteWithChildren
   '/_shell/allocation': typeof ShellAllocationRoute
   '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/exceptions': typeof ShellExceptionsRoute
   '/_shell/inventory': typeof ShellInventoryRoute
   '/_shell/packing': typeof ShellPackingRoute
   '/_shell/picking': typeof ShellPickingRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/'
     | '/allocation'
     | '/dashboard'
+    | '/exceptions'
     | '/inventory'
     | '/packing'
     | '/picking'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/allocation'
     | '/dashboard'
+    | '/exceptions'
     | '/inventory'
     | '/packing'
     | '/picking'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/_shell'
     | '/_shell/allocation'
     | '/_shell/dashboard'
+    | '/_shell/exceptions'
     | '/_shell/inventory'
     | '/_shell/packing'
     | '/_shell/picking'
@@ -163,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof ShellDashboardRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/exceptions': {
+      id: '/_shell/exceptions'
+      path: '/exceptions'
+      fullPath: '/exceptions'
+      preLoaderRoute: typeof ShellExceptionsRouteImport
       parentRoute: typeof ShellRoute
     }
     '/_shell/inventory': {
@@ -206,6 +225,7 @@ declare module '@tanstack/react-router' {
 interface ShellRouteChildren {
   ShellAllocationRoute: typeof ShellAllocationRoute
   ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellExceptionsRoute: typeof ShellExceptionsRoute
   ShellInventoryRoute: typeof ShellInventoryRoute
   ShellPackingRoute: typeof ShellPackingRoute
   ShellPickingRoute: typeof ShellPickingRoute
@@ -216,6 +236,7 @@ interface ShellRouteChildren {
 const ShellRouteChildren: ShellRouteChildren = {
   ShellAllocationRoute: ShellAllocationRoute,
   ShellDashboardRoute: ShellDashboardRoute,
+  ShellExceptionsRoute: ShellExceptionsRoute,
   ShellInventoryRoute: ShellInventoryRoute,
   ShellPackingRoute: ShellPackingRoute,
   ShellPickingRoute: ShellPickingRoute,
