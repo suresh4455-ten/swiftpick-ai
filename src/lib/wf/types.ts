@@ -24,8 +24,8 @@ export interface Product {
   bin: string;
   dailyDemand: number;
   unitCost: number;
-  reorderRequested?: boolean;
-  mismatch?: number;
+  reorderRequested?: boolean | undefined;
+  mismatch?: number | undefined;
 }
 
 export type OrderStatus =
@@ -55,7 +55,7 @@ export interface OrderLine {
 export interface TimelineEvent {
   stage: string;
   at: number;
-  note?: string;
+  note?: string | undefined;
 }
 
 export interface Order {
@@ -68,10 +68,10 @@ export interface Order {
   status: OrderStatus;
   lines: OrderLine[];
   timeline: TimelineEvent[];
-  picker?: string;
-  packer?: string;
-  batchId?: string;
-  qc?: "PASS" | "FAIL" | "PARTIAL";
+  picker?: string | undefined;
+  packer?: string | undefined;
+  batchId?: string | undefined;
+  qc?: "PASS" | "FAIL" | "PARTIAL" | undefined;
   valueUsd: number;
 }
 
@@ -89,8 +89,8 @@ export interface WfException {
   id: string;
   type: ExceptionType;
   severity: "critical" | "high" | "medium";
-  orderId?: string;
-  sku?: string;
+  orderId?: string | undefined;
+  sku?: string | undefined;
   detail: string;
   decision: string;
   resolution: string;
